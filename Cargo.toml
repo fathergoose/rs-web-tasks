@@ -1,5 +1,5 @@
 [package]
-name = "rs-web-tasks"
+name = "rs_web_tasks"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,3 +8,12 @@ axum = "0.8.3"
 serde = { version = "1.0.219", features = ["derive"] }
 tokio = { version = "1.44.2", features = ["full"] }
 tower = "0.5.2"
+diesel = { version = "2.2.0", features = ["postgres"] }
+deadpool-diesel = { version = "0.6.1", features = ["postgres"] }
+# uncomment these lines if you run into setup issues
+# pq-sys = { version = "0.6", features = ["bundled"] }
+# openssl-sys = { version = "0.9.100", features = ["vendored"] } 
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+dotenvy = "0.15"
+tracing = "0.1"
+# build libpq and openssl as part of the build process
