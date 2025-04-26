@@ -1,7 +1,7 @@
 use crate::schema::things;
 use diesel::prelude::*;
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, serde::Serialize)]
 #[diesel(table_name = crate::schema::things)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Thing {

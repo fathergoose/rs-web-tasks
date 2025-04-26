@@ -1,18 +1,18 @@
 use axum::{
+    // debug_handler,
     extract::State,
     http::StatusCode,
     response::Json,
-    routing::{get, post},
+    routing::get,
     Router,
 };
+use deadpool_diesel::{Manager, Pool};
 use diesel::prelude::*;
 
 use dotenvy::dotenv;
 use rs_web_tasks::{models::*, schema::things};
 use std::env;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-
-use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main() {
@@ -45,8 +45,9 @@ async fn main() {
     axum::serve(listener, app).await.unwrap();
 }
 
+// #[debug_handler]
 async fn get_things(
-    State(pool): State<deadpool_diesel::postgres::Pool>,
+    State(pool): State<Pool<Manager<PgConnection>>>,
 ) -> Result<Json<Vec<Thing>>, (StatusCode, String)> {
     let conn = pool.get().await.map_err(internal_error)?;
     let res = conn
